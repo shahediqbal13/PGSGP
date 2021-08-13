@@ -73,6 +73,7 @@ margin_right = 600.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 0, 100 )
 text = "Unlock achievement"
+
 [connection signal="pressed" from="VBoxContainer/SignInButton" to="." method="_on_SignInButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/SignOutButton" to="." method="_on_SignOutButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/CheckIfSignedInButton" to="." method="_on_CheckIfSignedInButton_pressed"]

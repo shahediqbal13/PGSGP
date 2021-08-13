@@ -6,6 +6,8 @@ import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.Scopes
+import com.google.android.gms.common.api.Scope
 import com.google.android.gms.drive.Drive
 import com.google.android.gms.games.SnapshotsClient
 import com.google.android.gms.games.snapshot.SnapshotMetadata
@@ -176,22 +178,22 @@ class PlayGameServicesGodot(godot: Godot) : GodotPlugin(godot), AchievementsList
         this.saveGameName = saveGameName
         val signInOptions = if (enableSaveGamesFunctionality) {
             val signInOptionsBuilder = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
-            signInOptionsBuilder.requestScopes(Drive.SCOPE_APPFOLDER).requestId()
+            signInOptionsBuilder.requestScopes(Scope(Scopes.DRIVE_APPFOLDER)).requestId()
             signInOptionsBuilder.build()
         } else {
             GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN
         }
 
-        connectionController = ConnectionController(godot as Activity, signInOptions)
-        signInController = SignInController(godot as Activity, this, connectionController)
-        achievementsController = AchievementsController(godot as Activity, this, connectionController)
-        leaderboardsController = LeaderboardsController(godot as Activity, this, connectionController)
-        eventsController = EventsController(godot as Activity, this, connectionController)
-        playerStatsController = PlayerStatsController(godot as Activity, this, connectionController)
-        playerInfoController = PlayerInfoController(godot as Activity, this, connectionController)
-        savedGamesController = SavedGamesController(godot as Activity, this, connectionController)
+        connectionController = ConnectionController(godot.activity as Activity, signInOptions)
+        signInController = SignInController(godot.activity as Activity, this, connectionController)
+        achievementsController = AchievementsController(godot.activity as Activity, this, connectionController)
+        leaderboardsController = LeaderboardsController(godot.activity as Activity, this, connectionController)
+        eventsController = EventsController(godot.activity as Activity, this, connectionController)
+        playerStatsController = PlayerStatsController(godot.activity as Activity, this, connectionController)
+        playerInfoController = PlayerInfoController(godot.activity as Activity, this, connectionController)
+        savedGamesController = SavedGamesController(godot.activity as Activity, this, connectionController)
 
-        googleSignInClient = GoogleSignIn.getClient(godot as Activity, signInOptions)
+        googleSignInClient = GoogleSignIn.getClient(godot.activity as Activity, signInOptions)
 
         runOnUiThread {
             signInController.setShowPopups(enablePopups)
